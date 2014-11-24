@@ -1,0 +1,45 @@
+{
+    "name": "stefanotorresi/thorr-oauth2-doctrine",
+    "description": "Doctrine adapter for Thorr\\OAuth2",
+    "type" : "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefano Torresi",
+            "email": "stefano@torresi.pro"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "~5.5",
+        "stefanotorresi/thorr-oauth2": "0.*@dev",
+        "stefanotorresi/thorr-persistence-doctrine": "0.*@dev",
+        "zendframework/zend-math": "~2.3",
+        "doctrine/orm": "~2.4"
+    },
+    "require-dev": {
+        "zendframework/zend-mvc": "~2.3",
+        "zendframework/zend-modulemanager": "~2.3",
+        "doctrine/doctrine-module": "~0.8",
+        "doctrine/doctrine-orm-module": "~0.8",
+        "zendframework/zend-view": "~2.3",
+        "zendframework/zend-serializer": "~2.3",
+        "zendframework/zend-log": "~2.3",
+        "zendframework/zend-console": "~2.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    },
+    "autoload" : {
+        "classmap": [
+            "Module.php"
+        ],
+        "psr-4": {
+            "Thorr\\OAuth2\\Doctrine\\": "src/",
+            "Thorr\\OAuth2\\Doctrine\\Test\\": "tests/"
+        }
+    }
+}

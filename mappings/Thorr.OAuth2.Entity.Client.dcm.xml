@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Thorr\OAuth2\Entity\Client" table="thorr_oauth2_clients">
+
+        <attribute-overrides>
+            <attribute-override name="id">
+                <id name="id" type="guid">
+                    <generator strategy="UUID" />
+                </id>
+            </attribute-override>
+        </attribute-overrides>
+
+        <field name="secret" type="string" length="60" nullable="true" />
+        <field name="redirectUri" type="string" length="2000" />
+        <field name="grantTypes" type="json_array" nullable="true" />
+
+        <many-to-one field="user" target-entity="Thorr\OAuth2\Entity\UserInterface" fetch="EAGER">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+
+        <many-to-many field="scopes" target-entity="Thorr\OAuth2\Entity\Scope">
+            <join-table name="thorr_oauth_client_scopes">
+                <join-columns>
+                    <join-column name="clientId" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="scopeId" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+
+</doctrine-mapping>

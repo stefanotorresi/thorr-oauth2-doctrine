@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Thorr\OAuth2\Entity\User" table="thorr_oauth2_users">
+
+        <id name="id" type="guid">
+            <generator strategy="UUID" />
+        </id>
+        <field name="password" type="string" length="60" nullable="true" />
+
+        <one-to-many target-entity="Thorr\OAuth2\Entity\ThirdParty" field="thirdPartyCredentials" mapped-by="user">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>
