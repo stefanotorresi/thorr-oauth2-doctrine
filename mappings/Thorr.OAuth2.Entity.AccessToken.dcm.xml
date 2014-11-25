@@ -7,7 +7,7 @@
     <entity name="Thorr\OAuth2\Entity\AccessToken" table="thorr_oauth2_access_tokens">
 
         <many-to-many field="scopes" target-entity="Thorr\OAuth2\Entity\Scope">
-            <join-table name="thorr_oauth_access_tokens_scopes">
+            <join-table name="thorr_oauth2_access_tokens_scopes">
                 <join-columns>
                     <join-column name="tokenId" referenced-column-name="id" on-delete="CASCADE" />
                 </join-columns>

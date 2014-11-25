@@ -9,7 +9,7 @@
         <field name="redirectUri" type="string" length="2000" />
 
         <many-to-many field="scopes" target-entity="Thorr\OAuth2\Entity\Scope">
-            <join-table name="thorr_oauth_auth_codes_scopes">
+            <join-table name="thorr_oauth2_auth_codes_scopes">
                 <join-columns>
                     <join-column name="tokenId" referenced-column-name="id" on-delete="CASCADE" />
                 </join-columns>

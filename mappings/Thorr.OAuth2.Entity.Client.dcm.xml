@@ -15,7 +15,7 @@
         </many-to-one>
 
         <many-to-many field="scopes" target-entity="Thorr\OAuth2\Entity\Scope">
-            <join-table name="thorr_oauth_client_scopes">
+            <join-table name="thorr_oauth2_client_scopes">
                 <join-columns>
                     <join-column name="clientId" referenced-column-name="id" />
                 </join-columns>
