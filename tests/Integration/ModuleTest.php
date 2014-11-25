@@ -14,7 +14,6 @@ use Thorr\OAuth2\Doctrine\Module;
 use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
 use Zend\Mvc\Application;
-use Zend\Stdlib;
 
 class ModuleTest extends TestCase
 {
@@ -50,7 +49,7 @@ class ModuleTest extends TestCase
 //                        ],
 //                    ],
 //                ]
-            ]
+            ],
         ];
 
         $this->application = $application = Application::init($this->config);
