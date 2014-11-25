@@ -128,7 +128,6 @@ class Module implements Feature\ConfigProviderInterface
                             Entity\Client::class            => 'thorr_oauth_orm_xml_driver',
                             Entity\RefreshToken::class      => 'thorr_oauth_orm_xml_driver',
                             Entity\Scope::class             => 'thorr_oauth_orm_xml_driver',
-                            Entity\ThirdParty::class        => 'thorr_oauth_orm_xml_driver',
                         ]
                     ]
                 ],
