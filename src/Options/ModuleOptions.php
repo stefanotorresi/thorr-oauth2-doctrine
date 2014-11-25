@@ -8,7 +8,6 @@
 namespace Thorr\OAuth2\Doctrine\Options;
 
 use Thorr\OAuth2\Options\ModuleOptions as BaseModuleOptions;
-use Zend\Stdlib\ArrayUtils;
 
 class ModuleOptions extends BaseModuleOptions
 {

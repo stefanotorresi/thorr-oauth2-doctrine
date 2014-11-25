@@ -14,7 +14,7 @@ use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
 class TokenMapperAdapter extends DoctrineAdapter implements TokenMapperInterface
 {
     /**
-     * @param  string $token
+     * @param  string             $token
      * @return AbstractToken|null
      */
     public function findByToken($token)

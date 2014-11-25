@@ -53,7 +53,7 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
     }
 
     /**
-     * @param  string $credential may be any unique field value allowed as a login name
+     * @param  string             $credential may be any unique field value allowed as a login name
      * @return UserInterface|null
      */
     public function findByCredential($credential)

@@ -34,7 +34,6 @@ class ScopeMapperAdapter extends DoctrineAdapter implements ScopeMapperInterface
         parent::__construct($entityClass, $objectManager);
     }
 
-
     /**
      * @param $scopes
      * @return array|Traversable
