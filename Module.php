@@ -96,6 +96,14 @@ class Module implements Feature\ConfigProviderInterface
                         __NAMESPACE__ . '\UserDataMapper'         => DataMapper\UserMapperAdapter::class,
                     ],
                 ],
+                'entity_resolver' => [
+                    'orm_default' => [
+                        'resolvers' => [
+                            Entity\UserInterface::class => Entity\User::class,
+                            Entity\ThirdPartyAwareUserInterface::class => Entity\User::class,
+                        ],
+                    ],
+                ],
             ],
 
             'service_manager' => [
