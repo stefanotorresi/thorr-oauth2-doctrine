@@ -96,14 +96,6 @@ class Module implements Feature\ConfigProviderInterface
                         __NAMESPACE__ . '\UserDataMapper'         => DataMapper\UserMapperAdapter::class,
                     ],
                 ],
-                'entity_resolver' => [
-                    'orm_default' => [
-                        'resolvers' => [
-                            Entity\UserInterface::class => Entity\User::class,
-                            Entity\ThirdPartyAwareUserInterface::class => Entity\User::class,
-                        ],
-                    ],
-                ],
             ],
 
             'service_manager' => [
@@ -139,7 +131,15 @@ class Module implements Feature\ConfigProviderInterface
                             Entity\ThirdParty::class        => 'thorr_oauth_orm_xml_driver',
                         ]
                     ]
-                ]
+                ],
+                'entity_resolver' => [
+                    'orm_default' => [
+                        'resolvers' => [
+                            Entity\UserInterface::class => Entity\User::class,
+                            Entity\ThirdPartyAwareUserInterface::class => Entity\User::class,
+                        ],
+                    ],
+                ],
             ],
         ];
     }
