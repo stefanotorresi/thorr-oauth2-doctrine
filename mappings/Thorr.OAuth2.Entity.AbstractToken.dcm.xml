@@ -7,9 +7,11 @@
     <mapped-superclass name="Thorr\OAuth2\Entity\AbstractToken">
         <field name="token" type="string" length="40" unique="true" />
         <field name="expiryDate" type="datetime" nullable="true" />
-        <many-to-one field="client" target-entity="Thorr\OAuth2\Entity\Client" />
+        <many-to-one field="client" target-entity="Thorr\OAuth2\Entity\Client">
+            <join-column name="clientUuid" referenced-column-name="uuid" on-delete="CASCADE" />
+        </many-to-one>
         <many-to-one field="user" target-entity="Thorr\OAuth2\Entity\UserInterface" fetch="EAGER">
-            <join-column on-delete="CASCADE" on-update="CASCADE" />
+            <join-column name="userUuid" referenced-column-name="uuid" on-delete="CASCADE" />
         </many-to-one>
     </mapped-superclass>
 

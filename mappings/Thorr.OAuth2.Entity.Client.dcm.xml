@@ -12,16 +12,16 @@
         <field name="description" type="string" />
 
         <many-to-one field="user" target-entity="Thorr\OAuth2\Entity\UserInterface" fetch="EAGER">
-            <join-column on-delete="CASCADE" />
+            <join-column name="userUuid" referenced-column-name="uuid" on-delete="CASCADE" />
         </many-to-one>
 
         <many-to-many field="scopes" target-entity="Thorr\OAuth2\Entity\Scope">
             <join-table name="thorr_oauth2_clients_scopes">
                 <join-columns>
-                    <join-column name="clientId" referenced-column-name="id" />
+                    <join-column name="clientUuid" referenced-column-name="uuid" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="scopeId" referenced-column-name="id" />
+                    <join-column name="scopeUuid" referenced-column-name="uuid" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>

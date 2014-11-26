@@ -10,10 +10,6 @@
             <unique-constraint columns="provider,providerUserId" name="provider_idx" />
         </unique-constraints>
 
-        <id name="id" type="integer">
-            <generator strategy="AUTO" />
-        </id>
-
         <field name="provider" type="string" length="255" />
         <field name="providerUserId" type="string" length="255" />
         <field name="data" type="json_array" nullable="true" />
@@ -23,7 +19,7 @@
                      inversed-by="thirdPartyCredentials"
                      orphan-removal="true"
                      fetch="EAGER">
-            <join-column on-delete="CASCADE" />
+            <join-column name="userUuid" referenced-column-name="uuid" on-delete="CASCADE" />
         </many-to-one>
 
     </entity>

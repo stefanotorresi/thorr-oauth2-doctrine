@@ -6,9 +6,6 @@
 
     <entity name="Thorr\OAuth2\Entity\User" table="thorr_oauth2_users">
 
-        <id name="id" type="guid">
-            <generator strategy="UUID" />
-        </id>
         <field name="password" type="string" length="60" nullable="true" />
 
         <one-to-many target-entity="Thorr\OAuth2\Entity\ThirdParty" field="thirdPartyCredentials" mapped-by="user">
