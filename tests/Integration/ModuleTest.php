@@ -9,6 +9,7 @@ namespace Thorr\OAuth2\Doctrine\Test\Integration;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit_Framework_TestCase as TestCase;
 use Thorr\OAuth2\Doctrine\Module;
 use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
@@ -37,18 +38,18 @@ class ModuleTest extends TestCase
                 'Thorr\OAuth2\Doctrine',
             ],
             'module_listener_options' => [
-//                'extra_config' => [
-//                    'doctrine' => [
-//                        'connection' => [
-//                            'orm_default' => [
-//                                'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
-//                                'params' => [
-//                                    'memory' => true,
-//                                ],
-//                            ],
-//                        ],
-//                    ],
-//                ]
+                'extra_config' => [
+                    'doctrine' => [
+                        'connection' => [
+                            'orm_default' => [
+                                'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
+                                'params' => [
+                                    'memory' => true,
+                                ],
+                            ],
+                        ],
+                    ],
+                ]
             ],
         ];
 
@@ -75,6 +76,13 @@ class ModuleTest extends TestCase
         foreach ($entities as $entity) {
             $this->assertInstanceOf(ClassMetadata::class, $entityManager->getClassMetadata($entity));
         }
+
+        // try a real schema creation with the in memory sqlite driver
+        $classes    = $entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool = new SchemaTool($entityManager);
+        $schemaTool->dropDatabase();
+        $schemaTool->createSchema($classes);
+        $this->assertTrue($entityManager->getConnection()->isConnected());
     }
 
     public function testDataMappers()
