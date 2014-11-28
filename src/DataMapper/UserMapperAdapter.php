@@ -24,7 +24,7 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
     /**
      * @var array
      */
-    protected $credentialFields = [ 'id' ];
+    protected $credentialFields = [ 'uuid' ];
 
     /**
      * {@inheritdoc}
