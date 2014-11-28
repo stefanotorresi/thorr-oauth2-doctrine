@@ -59,7 +59,7 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
     public function findByCredential($credential)
     {
         $queryBuilder = $this->getObjectManager()->createQueryBuilder();
-        $queryBuilder->select()->from($this->entityClass, 'user');
+        $queryBuilder->select('user')->from($this->entityClass, 'user');
 
         foreach ($this->getCredentialFields() as $field) {
             $queryBuilder->orWhere($queryBuilder->expr()->eq('user.'.$field, ':'.$field))
