@@ -68,8 +68,8 @@ class Module implements Feature\ConfigProviderInterface
     {
         return [
             'thorr_oauth_doctrine' => [
-                'default_user_mapping_enabled' => true,
-                'user_credential_fields' => [ 'id' ],
+//                'default_user_mapping_enabled' => true,
+//                'user_credential_fields' => [ 'uuid' ],
             ],
 
             'thorr_persistence_dmm' => [
