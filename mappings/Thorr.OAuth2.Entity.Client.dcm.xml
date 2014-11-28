@@ -7,7 +7,7 @@
     <entity name="Thorr\OAuth2\Entity\Client" table="thorr_oauth2_clients">
 
         <field name="secret" type="string" length="60" nullable="true" />
-        <field name="redirectUri" type="string" length="2000" />
+        <field name="redirectUri" type="string" length="2000" nullable="true" />
         <field name="grantTypes" type="json_array" nullable="true" />
         <field name="description" type="string" />
 
