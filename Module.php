@@ -96,16 +96,16 @@ class Module implements Feature\ConfigProviderInterface
                         __NAMESPACE__ . '\UserDataMapper'         => DataMapper\UserMapperAdapter::class,
                     ],
                 ],
+                'delegators' => [
+                    __NAMESPACE__ . '\UserDataMapper' => [
+                        DataMapper\UserMapperAdapterInitializer::class,
+                    ],
+                ],
             ],
 
             'service_manager' => [
                 'factories' => [
                     Options\ModuleOptions::class => Options\ModuleOptionsFactory::class,
-                ],
-                'delegators' => [
-                    __NAMESPACE__ . '\UserDataMapper' => [
-                        DataMapper\UserMapperAdapterInitializer::class,
-                    ],
                 ],
             ],
 

@@ -19,7 +19,7 @@ class ModuleOptions extends BaseModuleOptions
     /**
      * @var array
      */
-    protected $userCredentialFields = [ 'id' ];
+    protected $userCredentialFields = [ 'uuid' ];
 
     /**
      * @return boolean
