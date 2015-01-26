@@ -46,7 +46,7 @@ class IntegrationTestCase extends TestCase
                             ],
                         ],
                     ],
-                ]
+                ],
             ],
         ];
 
