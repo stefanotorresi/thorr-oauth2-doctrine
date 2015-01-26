@@ -7,7 +7,7 @@
     <entity name="Thorr\OAuth2\Entity\Scope" table="thorr_oauth2_scopes">
 
         <field name="name" type="string" />
-        <field name="default" type="boolean" />
+        <field name="defaultScope" type="boolean" />
 
     </entity>
 

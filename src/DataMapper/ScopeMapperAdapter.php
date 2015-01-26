@@ -61,6 +61,6 @@ class ScopeMapperAdapter extends DoctrineAdapter implements ScopeMapperInterface
      */
     public function findDefaultScopes()
     {
-        return $this->getObjectManager()->getRepository($this->entityClass)->findBy(['default' => true]);
+        return $this->getObjectManager()->getRepository($this->entityClass)->findBy(['defaultScope' => true]);
     }
 }

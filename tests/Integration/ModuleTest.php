@@ -7,55 +7,13 @@
 
 namespace Thorr\OAuth2\Doctrine\Test\Integration;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Tools\SchemaTool;
-use PHPUnit_Framework_TestCase as TestCase;
 use Thorr\OAuth2\Doctrine\Module;
 use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
-use Zend\Mvc\Application;
 
-class ModuleTest extends TestCase
+class ModuleTest extends IntegrationTestCase
 {
-    /**
-     * @var Application
-     */
-    protected $application;
-
-    /**
-     * @var
-     */
-    protected $config;
-
-    /**
-     *
-     */
-    public function setUp()
-    {
-        $this->config = [
-            'modules' => [
-                'Thorr\OAuth2\Doctrine',
-            ],
-            'module_listener_options' => [
-                'extra_config' => [
-                    'doctrine' => [
-                        'connection' => [
-                            'orm_default' => [
-                                'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
-                                'params' => [
-                                    'memory' => true,
-                                ],
-                            ],
-                        ],
-                    ],
-                ]
-            ],
-        ];
-
-        $this->application = $application = Application::init($this->config);
-    }
-
     public function testModuleLoading()
     {
         $moduleManager = $this->application->getServiceManager()->get('ModuleManager');
@@ -68,8 +26,7 @@ class ModuleTest extends TestCase
     {
         $serviceManager = $this->application->getServiceManager();
 
-        /** @var EntityManager $entityManager */
-        $entityManager = $serviceManager->get(EntityManager::class);
+        $entityManager = $this->getEntityManager();
 
         $entities = array_keys($serviceManager->get('config')['thorr_persistence_dmm']['entity_data_mapper_map']);
 
@@ -77,11 +34,8 @@ class ModuleTest extends TestCase
             $this->assertInstanceOf(ClassMetadata::class, $entityManager->getClassMetadata($entity));
         }
 
-        // try a real schema creation with the in memory sqlite driver
-        $classes    = $entityManager->getMetadataFactory()->getAllMetadata();
-        $schemaTool = new SchemaTool($entityManager);
-        $schemaTool->dropDatabase();
-        $schemaTool->createSchema($classes);
+        $this->initializeInMemoryDB();
+
         $this->assertTrue($entityManager->getConnection()->isConnected());
     }
 
