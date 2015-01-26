@@ -9,7 +9,6 @@ namespace Thorr\OAuth2\Doctrine\Test\Integration;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Thorr\OAuth2\Doctrine\Module;
-use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
 
 class ModuleTest extends IntegrationTestCase
@@ -41,12 +40,9 @@ class ModuleTest extends IntegrationTestCase
 
     public function testDataMappers()
     {
-        $serviceManager = $this->application->getServiceManager();
-
-        /** @var DataMapperManager $dataMapperManager */
-        $dataMapperManager = $serviceManager->get(DataMapperManager::class);
-
-        $dataMappers = $serviceManager->get('config')['thorr_persistence_dmm']['entity_data_mapper_map'];
+        $dataMapperManager = $this->getDataMapperManager();
+        $serviceManager    = $this->application->getServiceManager();
+        $dataMappers       = $serviceManager->get('config')['thorr_persistence_dmm']['entity_data_mapper_map'];
 
         foreach ($dataMappers as $entityClass => $dataMapperService) {
             /** @var DoctrineAdapter $dataMapper */

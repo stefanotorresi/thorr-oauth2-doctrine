@@ -7,11 +7,11 @@
 
 namespace Thorr\OAuth2\Doctrine\Test\Integration\DataMapper;
 
-use Doctrine\ORM\EntityManager;
+use ArrayObject;
 use Thorr\OAuth2\Doctrine\DataMapper\ScopeMapperAdapter;
 use Thorr\OAuth2\Doctrine\Test\Integration\IntegrationTestCase;
 use Thorr\OAuth2\Entity\Scope;
-use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
+use Traversable;
 
 class ScopeMapperAdapterTest extends IntegrationTestCase
 {
@@ -22,10 +22,65 @@ class ScopeMapperAdapterTest extends IntegrationTestCase
         $this->initializeInMemoryDB();
     }
 
-    public function testFindDefaultScope()
+    /**
+     * @param array|Traversable $args
+     *
+     * @dataProvider findScopesValidArgumentsProvider
+     */
+    public function testFindScopes($args)
     {
-        $serviceManager = $this->application->getServiceManager();
+        $entityManager = $this->getEntityManager();
 
+        $scope1 = new Scope(null, 'foo');
+        $scope2 = new Scope(null, 'bar');
+        $scope3 = new Scope(null, 'baz');
+
+        $entityManager->persist($scope1);
+        $entityManager->persist($scope2);
+        $entityManager->persist($scope3);
+        $entityManager->flush();
+
+        /** @var ScopeMapperAdapter $scopeMapper */
+        $scopeMapper = $this->getDataMapperManager()->getDataMapperForEntity(Scope::class);
+
+        $result = $scopeMapper->findScopes($args);
+
+        $this->assertContains($scope1, $result);
+        $this->assertContains($scope2, $result);
+        $this->assertNotContains($scope3, $result);
+    }
+
+    public function findScopesValidArgumentsProvider()
+    {
+        return [
+            [ ['foo', 'bar'] ],
+            [ new ArrayObject(['foo', 'bar']) ],
+        ];
+    }
+
+    /**
+     * @param mixed $arg
+     * @dataProvider findScopesInvalidArgumentsProvider
+     */
+    public function testFindScopesThrowsExceptionIfArgumentIsNotArrayOrTraversable($arg)
+    {
+        /** @var ScopeMapperAdapter $scopeMapper */
+        $scopeMapper = $this->getDataMapperManager()->getDataMapperForEntity(Scope::class);
+
+        $this->setExpectedException('InvalidArgumentException', 'Argument must be an array or Traversable');
+        $scopeMapper->findScopes($arg);
+    }
+
+    public function findScopesInvalidArgumentsProvider()
+    {
+        return [
+            [ 'asd' ],
+            [ new \stdClass() ],
+        ];
+    }
+
+    public function testFindDefaultScopes()
+    {
         $entityManager = $this->getEntityManager();
 
         $scope = new Scope(null, 'foo', false);
@@ -35,14 +90,11 @@ class ScopeMapperAdapterTest extends IntegrationTestCase
         $entityManager->persist($defaultScope);
         $entityManager->flush();
 
-        /** @var DataMapperManager $dataMapperManager */
-        $dataMapperManager = $serviceManager->get(DataMapperManager::class);
-
         /** @var ScopeMapperAdapter $scopeMapper */
-        $scopeMapper = $dataMapperManager->getDataMapperForEntity(Scope::class);
+        $scopeMapper = $this->getDataMapperManager()->getDataMapperForEntity(Scope::class);
 
-        $defaultScopes = $scopeMapper->findDefaultScopes();
-        $this->assertContains($defaultScope, $defaultScopes);
-        $this->assertNotContains($scope, $defaultScopes);
+        $result = $scopeMapper->findDefaultScopes();
+        $this->assertContains($defaultScope, $result);
+        $this->assertNotContains($scope, $result);
     }
 }

@@ -10,6 +10,7 @@ namespace Thorr\OAuth2\Doctrine\Test\Integration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit_Framework_TestCase as TestCase;
+use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Zend\Mvc\Application;
 
 class IntegrationTestCase extends TestCase
@@ -58,6 +59,14 @@ class IntegrationTestCase extends TestCase
     public function getEntityManager()
     {
         return $this->application->getServiceManager()->get(EntityManager::class);
+    }
+
+    /**
+     * @return DataMapperManager
+     */
+    public function getDataMapperManager()
+    {
+        return $this->application->getServiceManager()->get(DataMapperManager::class);
     }
 
     protected function initializeInMemoryDB()

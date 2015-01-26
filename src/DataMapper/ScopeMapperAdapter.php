@@ -48,7 +48,7 @@ class ScopeMapperAdapter extends DoctrineAdapter implements ScopeMapperInterface
 
         $queryBuilder = $this->getObjectManager()->createQueryBuilder();
         $queryBuilder
-            ->select()
+            ->select('scope')
             ->from($this->entityClass, 'scope')
             ->where($queryBuilder->expr()->in('scope.name', $scopes))
         ;
