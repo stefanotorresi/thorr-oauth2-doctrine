@@ -9,6 +9,7 @@ namespace Thorr\OAuth2\Doctrine\DataMapper;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use RuntimeException;
 use Thorr\OAuth2\DataMapper\UserMapperInterface;
 use Thorr\OAuth2\Entity\UserInterface;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
@@ -59,11 +60,25 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
     public function findByCredential($credential)
     {
         $queryBuilder = $this->getObjectManager()->createQueryBuilder();
-        $queryBuilder->select('user')->from($this->entityClass, 'user');
+        $rootAlias = 'user';
+        $queryBuilder->select($rootAlias)->from($this->entityClass, $rootAlias);
 
         foreach ($this->getCredentialFields() as $field) {
-            $queryBuilder->orWhere($queryBuilder->expr()->eq('user.'.$field, ':'.$field))
-                ->setParameter($field, $credential);
+            $whereAlias = $rootAlias;
+
+            // if a credential field contains a dot, we need to add a LEFT JOIN statement
+            if (strpos($field, '.') !== false) {
+                $joinField = explode('.', $field);
+                if (count($joinField) != 2) {
+                    throw new RuntimeException(sprintf("Invalid credential join field '%s'", $field));
+                }
+                $whereAlias = $joinField[0];
+                $field = $joinField[1];
+                $queryBuilder->leftJoin($rootAlias.'.'.$whereAlias, $whereAlias);
+            }
+
+            $queryBuilder->orWhere($queryBuilder->expr()->eq($whereAlias.'.'.$field, ':'.$field))
+                         ->setParameter($field, $credential);
         }
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
