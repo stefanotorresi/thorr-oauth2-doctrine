@@ -50,7 +50,7 @@ class IntegrationTestCase extends TestCase
             ],
         ];
 
-        $this->application = $application = Application::init($this->config);
+        $this->application = Application::init($this->config);
     }
 
     /**
