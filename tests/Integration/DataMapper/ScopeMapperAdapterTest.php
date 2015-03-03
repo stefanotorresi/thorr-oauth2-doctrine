@@ -83,7 +83,7 @@ class ScopeMapperAdapterTest extends IntegrationTestCase
     {
         $entityManager = $this->getEntityManager();
 
-        $scope = new Scope(null, 'foo', false);
+        $scope        = new Scope(null, 'foo', false);
         $defaultScope = new Scope(null, 'bar', true);
 
         $entityManager->persist($scope);

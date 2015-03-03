@@ -54,13 +54,14 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
     }
 
     /**
-     * @param  string             $credential may be any unique field value allowed as a login name
+     * @param string $credential may be any unique field value allowed as a login name
+     *
      * @return UserInterface|null
      */
     public function findByCredential($credential)
     {
         $queryBuilder = $this->getObjectManager()->createQueryBuilder();
-        $rootAlias = 'user';
+        $rootAlias    = 'user';
         $queryBuilder->select($rootAlias)->from($this->entityClass, $rootAlias);
 
         foreach ($this->getCredentialFields() as $field) {
@@ -73,11 +74,11 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
                     throw new RuntimeException(sprintf("Invalid credential join field '%s'", $field));
                 }
                 $whereAlias = $joinField[0];
-                $field = $joinField[1];
-                $queryBuilder->leftJoin($rootAlias.'.'.$whereAlias, $whereAlias);
+                $field      = $joinField[1];
+                $queryBuilder->leftJoin($rootAlias . '.' . $whereAlias, $whereAlias);
             }
 
-            $queryBuilder->orWhere($queryBuilder->expr()->eq($whereAlias.'.'.$field, ':'.$field))
+            $queryBuilder->orWhere($queryBuilder->expr()->eq($whereAlias . '.' . $field, ':' . $field))
                          ->setParameter($field, $credential);
         }
 

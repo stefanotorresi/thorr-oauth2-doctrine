@@ -36,6 +36,7 @@ class ScopeMapperAdapter extends DoctrineAdapter implements ScopeMapperInterface
 
     /**
      * @param $scopes
+     *
      * @return array|Traversable
      */
     public function findScopes($scopes)

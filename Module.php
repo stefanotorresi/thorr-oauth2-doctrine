@@ -28,7 +28,7 @@ class Module implements Feature\ConfigProviderInterface
             'DoctrineORMModule',
             'Thorr\Persistence',
             'Thorr\Persistence\Doctrine',
-            'Thorr\OAuth2'
+            'Thorr\OAuth2',
         ];
 
         foreach ($requiredModules as $module) {
@@ -52,7 +52,7 @@ class Module implements Feature\ConfigProviderInterface
             /** @var MappingDriverChain $doctrineDriverChain */
             $doctrineDriverChain = $serviceManager->get('doctrine.driver.orm_default');
 
-            $driverFactory = new DriverFactory('thorr_oauth_optional_orm_xml_driver');
+            $driverFactory     = new DriverFactory('thorr_oauth_optional_orm_xml_driver');
             $userMappingDriver = $driverFactory->createService($serviceManager);
 
             $doctrineDriverChain->addDriver($userMappingDriver, 'Thorr\OAuth2\Entity');
@@ -85,7 +85,7 @@ class Module implements Feature\ConfigProviderInterface
                 ],
                 'doctrine' => [
                     'object_manager' => EntityManager::class,
-                    'adapters' => [
+                    'adapters'       => [
                         // key is the arbitrary service name, value is an adapter spec (string|array)
                         __NAMESPACE__ . '\AccessTokenDataMapper'  => DataMapper\TokenMapperAdapter::class,
                         __NAMESPACE__ . '\AuthCodeDataMapper'     => DataMapper\TokenMapperAdapter::class,
@@ -116,11 +116,11 @@ class Module implements Feature\ConfigProviderInterface
                         'paths' => __DIR__ . '/mappings',
                     ],
                     'thorr_oauth_optional_orm_xml_driver' => [
-                        'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
-                        'paths' => __DIR__ . '/mappings',
-                        'extension' => '.dcm.optional.xml'
+                        'class'     => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
+                        'paths'     => __DIR__ . '/mappings',
+                        'extension' => '.dcm.optional.xml',
                     ],
-                    'orm_default' =>[
+                    'orm_default' => [
                         'drivers' => [
                             Entity\AbstractToken::class     => 'thorr_oauth_orm_xml_driver',
                             Entity\AccessToken::class       => 'thorr_oauth_orm_xml_driver',
@@ -128,13 +128,13 @@ class Module implements Feature\ConfigProviderInterface
                             Entity\Client::class            => 'thorr_oauth_orm_xml_driver',
                             Entity\RefreshToken::class      => 'thorr_oauth_orm_xml_driver',
                             Entity\Scope::class             => 'thorr_oauth_orm_xml_driver',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'entity_resolver' => [
                     'orm_default' => [
                         'resolvers' => [
-                            Entity\UserInterface::class => Entity\User::class,
+                            Entity\UserInterface::class                => Entity\User::class,
                             Entity\ThirdPartyAwareUserInterface::class => Entity\User::class,
                         ],
                     ],
