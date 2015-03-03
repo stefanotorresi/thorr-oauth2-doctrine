@@ -13,8 +13,8 @@
     "prefer-stable": true,
     "require": {
         "php": "~5.5",
-        "stefanotorresi/thorr-oauth2": "0.*@dev",
-        "stefanotorresi/thorr-persistence-doctrine": "0.*@dev",
+        "stefanotorresi/thorr-oauth2": "~1.0@beta",
+        "stefanotorresi/thorr-persistence-doctrine": "~1.0@beta",
         "zendframework/zend-math": "~2.3",
         "doctrine/orm": "~2.4"
     },
@@ -31,7 +31,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.x-dev"
+            "dev-master": "1.x-dev"
         }
     },
     "autoload" : {
