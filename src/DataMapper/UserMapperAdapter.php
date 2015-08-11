@@ -7,20 +7,19 @@
 
 namespace Thorr\OAuth2\Doctrine\DataMapper;
 
+use Assert\Assertion;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use RuntimeException;
 use Thorr\OAuth2\DataMapper\UserMapperInterface;
 use Thorr\OAuth2\Entity\UserInterface;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
-use Thorr\Persistence\Doctrine\ObjectManager\ObjectManagerGuardTrait;
 
 /**
  * @method EntityManager getObjectManager()
  */
 class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
 {
-    use ObjectManagerGuardTrait;
 
     /**
      * @var array
@@ -32,7 +31,7 @@ class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
      */
     public function __construct($entityClass, ObjectManager $objectManager)
     {
-        $this->guardForSpecificObjectManager(EntityManager::class, $objectManager);
+        Assertion::isInstanceOf($objectManager, EntityManager::class);
 
         parent::__construct($entityClass, $objectManager);
     }

@@ -7,11 +7,11 @@
 
 namespace Thorr\OAuth2\Doctrine\DataMapper;
 
+use Assert\Assertion;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Thorr\OAuth2\DataMapper\ScopeMapperInterface;
 use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
-use Thorr\Persistence\Doctrine\ObjectManager\ObjectManagerGuardTrait;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Guard\ArrayOrTraversableGuardTrait;
@@ -22,14 +22,13 @@ use Zend\Stdlib\Guard\ArrayOrTraversableGuardTrait;
 class ScopeMapperAdapter extends DoctrineAdapter implements ScopeMapperInterface
 {
     use ArrayOrTraversableGuardTrait;
-    use ObjectManagerGuardTrait;
 
     /**
      * {@inheritdoc}
      */
     public function __construct($entityClass, ObjectManager $objectManager)
     {
-        $this->guardForSpecificObjectManager(EntityManager::class, $objectManager);
+        Assertion::isInstanceOf($objectManager, EntityManager::class);
 
         parent::__construct($entityClass, $objectManager);
     }

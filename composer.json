@@ -13,10 +13,11 @@
     "prefer-stable": true,
     "require": {
         "php": "~5.5",
-        "stefanotorresi/thorr-oauth2": "~1.0@beta",
-        "stefanotorresi/thorr-persistence-doctrine": "~1.0@beta",
+        "stefanotorresi/thorr-oauth2": "~2.0",
+        "stefanotorresi/thorr-persistence-doctrine": "~2.0",
         "zendframework/zend-math": "~2.3",
-        "doctrine/orm": "~2.4"
+        "doctrine/orm": "~2.4",
+        "beberlei/assert": "@stable"
     },
     "require-dev": {
         "zendframework/zend-mvc": "~2.3",
@@ -27,7 +28,8 @@
         "zendframework/zend-serializer": "~2.3",
         "zendframework/zend-log": "~2.3",
         "zendframework/zend-console": "~2.3",
-        "fabpot/php-cs-fixer": "~1.5"
+        "fabpot/php-cs-fixer": "~1.5",
+        "zendframework/zend-i18n": "^2.5@dev"
     },
     "extra": {
         "branch-alias": {
