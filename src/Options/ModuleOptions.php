@@ -22,7 +22,7 @@ class ModuleOptions extends BaseModuleOptions
     protected $userCredentialFields = [ 'uuid' ];
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isDefaultUserMappingEnabled()
     {
@@ -30,7 +30,7 @@ class ModuleOptions extends BaseModuleOptions
     }
 
     /**
-     * @param boolean $loadDefaultUserMapping
+     * @param bool $loadDefaultUserMapping
      */
     public function setDefaultUserMappingEnabled($loadDefaultUserMapping)
     {
