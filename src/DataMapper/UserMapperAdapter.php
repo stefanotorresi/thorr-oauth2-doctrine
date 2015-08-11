@@ -20,7 +20,6 @@ use Thorr\Persistence\Doctrine\DataMapper\DoctrineAdapter;
  */
 class UserMapperAdapter extends DoctrineAdapter implements UserMapperInterface
 {
-
     /**
      * @var array
      */
